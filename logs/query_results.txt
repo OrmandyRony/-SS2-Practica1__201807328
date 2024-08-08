@@ -1,0 +1,300 @@
+Consulta: Total Flights
+ TotalFlights
+        59658
+
+Consulta: Passengers by Gender
+Gender  TotalPassengers
+  Male            29960
+Female            29698
+
+Consulta: Flights by Country
+AirportCountryCode  TotalFlights
+                UM            14
+                EE            37
+                TR           440
+                PE           286
+                PY            94
+                GF            50
+                GH            23
+                IR           495
+                HU            37
+                GW             4
+                UA           237
+                BM            13
+                PA           238
+                AT            55
+                DE           723
+                SS            29
+                EC           176
+                IN           895
+                CL           344
+                BI            31
+                UY            96
+                GB           820
+                IL            96
+                NF             8
+                MM           271
+                MD            13
+                RS            24
+                CO          1031
+                BE            41
+                PF           310
+                PH           471
+                BY            42
+                DM            22
+                LS           102
+                OM           130
+                NZ           354
+                IO            10
+                GT           138
+                BA            35
+                AF           213
+                TL            47
+                CR           181
+                TJ            23
+                CX             6
+                MQ             7
+                NG           164
+                MC             6
+                GL           211
+                ME            22
+                NR             5
+                SC            38
+                PG          2477
+                SE           367
+                WF            12
+                GU            21
+                VC            29
+                KP            34
+                ZM           130
+                CZ            93
+                MA           167
+                CM           144
+                BB             2
+                CD           441
+                TT            13
+                AG            10
+                SA           234
+                MP            27
+                KM            32
+                IT           402
+                RE            10
+                ZW            90
+                NL            93
+                CI           148
+                VI            34
+                GG             9
+                AU          3822
+                LC             9
+                TW           126
+                SO           140
+                GR           284
+                FK            12
+                IS           247
+                KI           157
+                NU            10
+                EH            25
+                HK            24
+                SD           161
+                MX           629
+                VE           453
+                HN           183
+                YT             6
+                TO            42
+                TZ           210
+                IQ            83
+                GN            82
+                BF           156
+                RO           125
+                TD           150
+                KE           255
+                LA            98
+                BH            10
+                SX             7
+                PK           444
+                TM            38
+                SI            18
+                GY           173
+                MO             9
+                CA          3203
+                CF           158
+                MN           146
+                MT            11
+                KH            85
+                BO           239
+                EG           164
+                CU           194
+                KW            12
+                DK           120
+                DO            81
+                ST            19
+                ER            27
+                PR            96
+                CC             6
+                MH           217
+                TC            34
+                LB            16
+                MF            15
+                BG            72
+                MW            70
+                GQ            40
+                FJ           181
+                KZ           183
+                SH            13
+                BR          2737
+                TV            12
+                ZA           579
+                AR           710
+                CH           100
+                IE           122
+                IM             4
+                MZ           234
+                HR            62
+                TH           317
+                BN             2
+                UG           101
+                FO             7
+                SZ            12
+                PL           127
+                LT            38
+                PS            20
+                LV            19
+                RW            38
+                BJ            34
+                CY            28
+                YE           109
+                BL             4
+                SB           253
+                CV            74
+                FR           847
+                DJ            27
+                AL             7
+                AS            29
+                ID          1453
+                MK            17
+                TG            15
+                AI             8
+                ET           336
+                LK           214
+                PT           148
+                MY           429
+                QA            20
+                BQ            21
+                GA           202
+                NI            97
+                VU           211
+                MV            81
+                WS            25
+                AO           276
+                US         13304
+                SN            96
+                BZ           131
+                JO            27
+                SY            50
+                MG           422
+                BD           114
+                AZ            48
+                AE            93
+                FM            51
+                MS            12
+                JE             2
+                PW             3
+                SL            50
+                TN            62
+                NC            98
+                RU          1336
+                LR           106
+                NE            34
+                MU            16
+                UZ            85
+                GM             8
+                GD            11
+                KG            21
+                AW             4
+                PM            14
+                KR           210
+                SK            45
+                JP           604
+                ES           376
+                GI             3
+                ML            71
+                LY           127
+                CK            55
+                BT            23
+                NP           267
+                MR           121
+                GP            29
+                CN          1673
+                DZ           266
+                VN           218
+                SV            11
+                NO           380
+                AM            10
+                AD             6
+                KN            16
+                JM            48
+                BS           255
+                HT            39
+                SG            29
+                SR            94
+                GE            18
+                KY            14
+                BW           104
+                CG           153
+                VG            14
+                LU             8
+                FI           200
+
+Consulta: Top 5 Airports by Passengers
+        AirportName  PassengerCount
+  san pedro airport              26
+    maliana airport              23
+ böblingen flugfeld              22
+ queenstown airport              21
+santa maria airport              21
+
+Consulta: Flight Status Count
+FlightStatus  TotalFlights
+   cancelled         19908
+     delayed         19874
+     on time         19876
+
+Consulta: Top 5 Most Visited Countries
+AirportCountryCode  VisitCount
+                US       13304
+                AU        3822
+                CA        3203
+                BR        2737
+                PG        2477
+
+Consulta: Top 5 Most Visited Continents
+AirportContinent  VisitCount
+             nam       19170
+              as       11305
+              oc        8394
+              eu        7537
+              af        6757
+
+Consulta: Top 5 Ages by Gender
+Gender  Age  FlightCount
+  Male   24          375
+Female   72          365
+Female   74          365
+Female   57          363
+  Male   68          362
+
+Consulta: Flight Count by Month and Year
+MonthYear  TotalFlights
+   1-2022          5217
+   2-2022          4398
+   3-2022          5195
+   4-2022          4729
+   5-2022          5183
+   6-2022          4872
+   7-2022          5167
+   8-2022          5233
+   9-2022          4897
+  10-2022          5223
+  11-2022          4812
+  12-2022          4732
+

@@ -1,50 +1,65 @@
-# [SS2] Primera Práctica de Laboratorio - Proceso ETL
+### 1. Diagrama del Modelo Realizado
 
-## Universidad de San Carlos de Guatemala
-**Facultad de Ingeniería - Escuela de Ciencias y Sistemas**  
-**Seminario de Sistemas 2 - Segundo Semestre 2024**  
-**Catedráticos:**  
-- Ing. Luis Alberto Vettorazzi Espana  
-- Ing. Fernando Jose Paz Gonzales  
-**Auxiliares:**  
-- Aux. Jose Fernando Alvarez Morales  
-- Aux. Sergio Enrique Cubur  
+![Diagrama ER](doc/Diagrama-ER.png)
 
----
+### 2. Manual Técnico
 
-## Descripción General
+#### **Descripción del Modelo**
 
-Esta práctica se centra en el desarrollo de un proceso ETL (Extract, Transform, Load) utilizando Python y SQL Server. El objetivo es extraer datos de archivos proporcionados, transformarlos y cargarlos en un modelo de datos previamente diseñado. Además, se deben realizar consultas específicas sobre los datos cargados.
+El modelo de datos creado está basado en el enfoque **Star Schema** (Esquema Estrella) con una tabla de hechos y varias tablas de dimensiones. Este diseño es ideal para realizar análisis multidimensionales y facilitar consultas eficientes para el análisis de vuelos.
 
-## Estructura del Proyecto
+- **Tabla de Hechos (`FactFlights`)**:
+  - Esta tabla contiene los registros de los vuelos realizados. Cada registro incluye claves foráneas que hacen referencia a las tablas de dimensiones.
+  - **Campos principales**:
+    - `FlightID`: Identificador único del vuelo.
+    - `PassengerID`: Clave foránea que referencia al pasajero (`DimPassenger`).
+    - `AirportID`: Clave foránea que referencia al aeropuerto de salida (`DimAirport`).
+    - `DateID`: Clave foránea que referencia a la fecha de salida (`DimDate`).
+    - `StatusID`: Clave foránea que referencia al estado del vuelo (`DimFlightStatus`).
+    - `ArrivalAirport`: Nombre del aeropuerto de llegada.
+    - `PilotName`: Nombre del piloto.
 
-- **database/**: Contiene scripts SQL para la creación y eliminación de las tablas del modelo de datos.
-- **input/**: Carpeta destinada a almacenar los archivos de entrada que se utilizarán en el proceso ETL.
-- **src/**: Contiene el código fuente en Python que realiza las operaciones ETL.
-- **.gitignore**: Archivo de configuración para evitar la inclusión de archivos no deseados en el control de versiones.
-- **docker-sql-server.ps1**: Script de PowerShell para configurar un contenedor Docker con SQL Server.
-- **output_results.txt**: Archivo donde se almacenan los resultados de las consultas realizadas.
-- **Pipfile**: Archivo para la gestión de dependencias del proyecto utilizando Pipenv.
-- **Pipfile.lock**: Archivo de bloqueo de dependencias generado por Pipenv.
-- **README.md**: Este archivo, que proporciona una descripción general del proyecto y sus instrucciones de uso.
+- **Tablas de Dimensiones**:
+  - **`DimPassenger`**:
+    - Información sobre los pasajeros. 
+    - Incluye datos como el nombre, apellido, género, edad, y nacionalidad.
+  - **`DimAirport`**:
+    - Información sobre los aeropuertos.
+    - Incluye el nombre del aeropuerto, país, código del país, continente y nombre del continente.
+  - **`DimDate`**:
+    - Información sobre las fechas de salida de los vuelos.
+    - Incluye la fecha de salida, día, mes, año y día de la semana.
+  - **`DimFlightStatus`**:
+    - Información sobre el estado del vuelo.
+    - Incluye el estado del vuelo (por ejemplo, `On Time`, `Delayed`, `Cancelled`).
 
-## Funcionalidades Principales
+#### **Descripción del Proceso ETL**
 
-1. **Borrar Modelo**: Elimina cualquier tabla que haya sido creada previamente.
-2. **Crear Modelo**: Crea las tablas necesarias para almacenar los datos transformados.
-3. **Extraer Información**: Extrae los datos de los archivos de entrada.
-4. **Cargar Información**: Transforma los datos extraídos y los carga en las tablas creadas.
-5. **Realizar Consultas**: Ejecuta consultas sobre los datos cargados y guarda los resultados en `output_results.txt`.
+El proceso de **ETL (Extracción, Transformación y Carga)** que realizamos sigue los siguientes pasos:
 
-## Requisitos
+1. **Extracción**:
+   - Los datos de los vuelos fueron extraídos de un archivo CSV que contenía información como el nombre del pasajero, aeropuerto, fechas de salida, y estado del vuelo.
+   
+2. **Transformación**:
+   - **Limpieza de Datos**: Se eliminaron los registros con valores nulos o inválidos.
+   - **Conversión de Fechas**: Las fechas de salida fueron normalizadas y convertidas al formato correcto para ser almacenadas en SQL Server. Se eliminaron registros con fechas no válidas (`NaT`).
+   - **Estandarización de Texto**: Los valores de texto como nombres de aeropuertos, continentes, y estados de vuelo fueron convertidos a minúsculas para mantener la consistencia.
+   - **Escape de Comillas Simples**: Para evitar errores de sintaxis en SQL Server, las comillas simples en los nombres y otros campos de texto fueron escapadas (`'` → `''`).
 
-- **Python 3.x**: Lenguaje de programación utilizado para la implementación del proceso ETL.
-- **SQL Server**: Sistema de gestión de bases de datos utilizado para almacenar los datos transformados.
-- **Docker**: Utilizado para ejecutar SQL Server en un contenedor.
-- **Pipenv**: Utilizado para la gestión de dependencias del proyecto.
+3. **Carga**:
+   - Los datos fueron cargados en las tablas de dimensiones (`DimPassenger`, `DimAirport`, `DimDate`, `DimFlightStatus`) eliminando previamente cualquier duplicado.
+   - Luego, los datos de la tabla de hechos (`FactFlights`) se poblaron usando las claves foráneas de las tablas de dimensiones. Para cada vuelo, se realizaron consultas a las tablas de dimensiones para obtener las claves correspondientes (`PassengerID`, `AirportID`, `DateID`, `StatusID`), y esos valores se insertaron en la tabla `FactFlights`.
 
-## Ejecución del Proyecto
+#### **Proceso de Consulta**
 
-1. **Instalación de Dependencias:**
-   ```sh
-   pipenv install
+Una vez los datos se cargaron correctamente en las tablas, las consultas fueron diseñadas para realizar análisis sobre los datos. Estas consultas incluyeron:
+- Conteo de vuelos totales.
+- Conteo de pasajeros por género.
+- Los 5 aeropuertos con más pasajeros.
+- Los 5 países y continentes más visitados.
+- Conteo de vuelos por estado de vuelo (`On Time`, `Delayed`, etc.).
+- Conteo de vuelos por mes y año.
+
+Estas consultas se ejecutaron sobre las tablas utilizando `JOINs` entre la tabla de hechos y las tablas de dimensiones para obtener información combinada y facilitar el análisis.
+
+Este modelo es escalable y puede soportar un análisis más detallado conforme los datos crezcan, permitiendo realizar consultas eficientes y generando reportes de análisis sobre los vuelos.
